@@ -23,6 +23,8 @@ function preload() {
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
+    game.load.image('ground2', 'assets/platform2.png');
+    game.load.image('ground3', 'assets/platform3.png');
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
     game.load.spritesheet('slime', 'assets/slime 2.png', 28, 28);
@@ -69,29 +71,32 @@ function create() {
     ground.body.immovable = true;
 
     // Now let's create two ledges
-    // Top center ledge C1
-    ledge = platforms.create(200, 125, 'ground');
+    // Left top ledge L1
+    ledge = platforms.create(-150, 125, 'ground2');
     ledge.body.immovable = true;
-    // Center ledge C2
-    ledge = platforms.create(200, 275, 'ground');
+    // Right top ledge R1
+    ledge = platforms.create(650, 125, 'ground2');
     ledge.body.immovable = true;
-    // Bottom center ledge C3
-    ledge = platforms.create(200, 425, 'ground');
+    // Middle top ledge M1
+    ledge = platforms.create(250, 225, 'ground2');
     ledge.body.immovable = true;
-    // Left upper ledge L1
-    ledge = platforms.create(-300, 200, 'ground');
+    // Left middle ledge L2
+    ledge = platforms.create(100, 325, 'ground3');
     ledge.body.immovable = true;
-    // Right upper R1
-    ledge = platforms.create (700, 200, 'ground');
+    // Right middle ledge R2
+    ledge = platforms.create(550, 325, 'ground3');
     ledge.body.immovable = true;
-    // Left lower ledge L2
-    ledge = platforms.create(-300, 365, 'ground');
+    // Middle bottom ledge M2
+    ledge = platforms.create(250, 375, 'ground2');
     ledge.body.immovable = true;
-    // Right lower ledge R2
-    ledge = platforms.create (700, 365, 'ground');
+    // Left bottom ledge L3
+    ledge = platforms.create(-25, 425, 'ground3');
     ledge.body.immovable = true;
-
-
+    // Right bottom ledge R3
+    ledge = platforms.create(675, 425, 'ground3');
+    ledge.body.immovable = true;
+    
+    
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'batman');
 
@@ -120,29 +125,25 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // C1
-        [225, 100],
-        [445, 100],
+        // L1/R1
+        [50, 100],
+        [700, 100],
         
-        // L1
-        [15, 175],
-
-        // R1
-        [750, 175],
+        // M1
+        [265, 200],
+        [480, 200],
         
-        // C2
-        [225, 250],
-        [445, 250],
+        // L2/R2
+        [150, 300],
+        [600, 300],
         
-        // L2
-        [15, 330],
+        // M2
+        [275, 350],
+        [475, 350],
         
-        // R2
-        [750, 330],
-        
-        // C3
-        [225, 400],
-        [445, 400],
+        // L3/R3
+        [25, 400],
+        [725, 400]
 ];
 
     let offset = 250;
@@ -199,7 +200,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-        setTimeout(() => game.add.text(315, 200, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
+        setTimeout(() => game.add.text(315, 100, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -211,9 +212,9 @@ function update() {
     }
 
     if (score == 100){
-        setTimeout(() => game.add.text(330, 200, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
+        setTimeout(() => game.add.text(330, 100, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
         
-        setTimeout(() => {window.location = 'level3.html'}, 3000);
+        // setTimeout(() => {window.location = 'level4.html'}, 3000);
     }
 
     // helper
