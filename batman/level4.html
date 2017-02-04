@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
 	<meta charset="UTF-8" />
-	<title>Level 3</title>
+	<title>Level 4</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
@@ -25,6 +25,8 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('ground2', 'assets/platform2.png');
     game.load.image('ground3', 'assets/platform3.png');
+    game.load.image('ground4', 'assets/platform4.png');
+    game.load.image('ground5', 'assets/platform5.png');
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
     game.load.spritesheet('slime', 'assets/slime 2.png', 28, 28);
@@ -70,40 +72,71 @@ function create() {
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
-    // Now let's create two ledges
-    // Left top ledge L1
-    ledge = platforms.create(-150, 125, 'ground2');
+    // Left from the top down
+    // Left 1
+    ledge = platforms.create(0, 100, 'ground4');
     ledge.body.immovable = true;
-    // Right top ledge R1
-    ledge = platforms.create(650, 125, 'ground2');
+    // Left 2
+    ledge = platforms.create(50, 225, 'ground5');
     ledge.body.immovable = true;
-    // Middle top ledge M1
-    ledge = platforms.create(250, 225, 'ground2');
+    // Left 3
+    ledge = platforms.create(0, 300, 'ground5');
     ledge.body.immovable = true;
-    // Left middle ledge L2
-    ledge = platforms.create(100, 325, 'ground3');
+    // Left 4
+    ledge = platforms.create(50, 375, 'ground5');
     ledge.body.immovable = true;
-    // Right middle ledge R2
-    ledge = platforms.create(550, 325, 'ground3');
-    ledge.body.immovable = true;
-    // Middle bottom ledge M2
-    ledge = platforms.create(250, 375, 'ground2');
-    ledge.body.immovable = true;
-    // Left bottom ledge L3
-    ledge = platforms.create(-25, 425, 'ground3');
-    ledge.body.immovable = true;
-    // Right bottom ledge R3
-    ledge = platforms.create(675, 425, 'ground3');
+    // Left 5
+    ledge = platforms.create(0, 450, 'ground5');
     ledge.body.immovable = true;
     
+    // Right from the top down
+    // Right 1
+    ledge = platforms.create(750, 100, 'ground4');
+    ledge.body.immovable = true;
+    // Right 2
+    ledge = platforms.create(707, 225, 'ground5');
+    ledge.body.immovable = true;
+    // Right 3
+    ledge = platforms.create(767, 300, 'ground5')
+    ledge.body.immovable = true;
+    // Right 4
+    ledge = platforms.create(707, 375, 'ground5');
+    ledge.body.immovable = true;
+    // Right 5
+    ledge = platforms.create(767, 450, 'ground5');
+    ledge.body.immovable = true;
+    
+    // Highest ledge
+    ledge = platforms.create(375, 100, 'ground4');
+    ledge.body.immovable = true;
+    
+    // Middle ledges
+    // Top left
+    ledge = platforms.create(150, 175, 'ground3');
+    ledge.body.immovable = true;
+    // Top middle
+    ledge = platforms.create(385, 225, 'ground5');
+    ledge.body.immovable = true;
+    // Top right
+    ledge = platforms.create(500, 175, 'ground3');
+    ledge.body.immovable = true;
+    // Middle left
+    ledge = platforms.create(175, 285, 'ground3');
+    ledge.body.immovable = true;
+    // Middle right
+    ledge = platforms.create(475, 285, 'ground3');
+    ledge.body.immovable = true;
+    // Bottom middle
+    ledge = platforms.create(200, 365, 'ground');
+    ledge.body.immovable = true;
     
     // The player and its settings
-    player = game.add.sprite(375, game.world.height - 95, 'batman');
+    player = game.add.sprite(390, game.world.height - 95, 'batman');
 
     //  Player physics properties. Give the little guy a slight bounce.
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.0;
-    player.body.gravity.y = 525;
+    player.body.gravity.y = 650;
     player.body.collideWorldBounds = true;
 
     //  Our three animations, walking left ,right and jumping.
@@ -125,25 +158,21 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // L1/R1
-        [50, 100],
-        [700, 100],
+        [15, 75],
+        [375, 75],
+        [750, 75],
         
-        // M1
-        [265, 200],
-        [480, 200],
+        [200, 150],
+        [550, 150],
         
-        // L2/R2
-        [150, 300],
-        [600, 300],
+        [240, 260],
+        [525, 260],
         
-        // M2
-        [275, 350],
-        [475, 350],
+        [230, 340],
+        [365, 340],
+        [495, 340]
         
-        // L3/R3
-        [25, 400],
-        [725, 400]
+        
 ];
 
     let offset = 250;
@@ -200,7 +229,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-        setTimeout(() => game.add.text(315, 100, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
+        setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -212,9 +241,9 @@ function update() {
     }
 
     if (score == 100){
-        setTimeout(() => game.add.text(330, 100, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
+        setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
         
-        setTimeout(() => {window.location = 'level4.html'}, 3000);
+        // setTimeout(() => {window.location = 'level5.html'}, 3000);
     }
 
     // helper
