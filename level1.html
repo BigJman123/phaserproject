@@ -3,7 +3,7 @@
 <head> 
 	<meta charset="UTF-8" />
 	<title>Level 1</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
     <script type="text/javascript" src="HealthBar.js"></script>
@@ -172,6 +172,7 @@ function update() {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
+        game.camera.flash(0xff0000, 500);
         setTimeout(() => notInvincible(), 1000);
     }
 

@@ -10,14 +10,12 @@ Bullet.prototype.constructor = Bullet;
 Bullet.prototype.update = function() {
 
     game.physics.arcade.overlap(this, platforms, function (bullet) {
-        bullet.destroy();
+        setTimeout(() => bullet.destroy(), 1)
     });
 
     game.physics.arcade.overlap(this, slimes, function (bullet, slime) {
-        bullet.destroy();
         slime.destroy();
-        // score += 1;
-        // scoreText.text = 'Score: ' + score;
+        setTimeout(() => bullet.destroy(), 1);
     });
 
     if (this.body == null) {
