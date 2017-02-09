@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
 	<meta charset="UTF-8" />
-	<title>Level 5</title>
+	<title>Level 4</title>
     <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
@@ -72,94 +72,63 @@ function create() {
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
-    // Far left column from top to bottom
-    // L1
-    ledge = platforms.create(35, 90, 'ground5');
+    // Left from the top down
+    // Left 1
+    ledge = platforms.create(0, 100, 'ground4');
     ledge.body.immovable = true;
-    // L2
-    ledge = platforms.create(35, 240, 'ground5');
+    // Left 2
+    ledge = platforms.create(50, 225, 'ground5');
     ledge.body.immovable = true;
-    // L3
-    ledge = platforms.create(35, 390, 'ground5');
+    // Left 3
+    ledge = platforms.create(0, 300, 'ground5');
+    ledge.body.immovable = true;
+    // Left 4
+    ledge = platforms.create(50, 375, 'ground5');
+    ledge.body.immovable = true;
+    // Left 5
+    ledge = platforms.create(0, 450, 'ground5');
     ledge.body.immovable = true;
     
-    // Second column from the left top to bottom
-    // L4
-    ledge = platforms.create(135, 165, 'ground5');
+    // Right from the top down
+    // Right 1
+    ledge = platforms.create(750, 100, 'ground4');
     ledge.body.immovable = true;
-    // L5
-    ledge = platforms.create(135, 315, 'ground5');
+    // Right 2
+    ledge = platforms.create(707, 225, 'ground5');
     ledge.body.immovable = true;
-    // L6
-    ledge = platforms.create(135, 465, 'ground5');
+    // Right 3
+    ledge = platforms.create(767, 300, 'ground5')
     ledge.body.immovable = true;
-
-    // Third column from the left top to bottom
-    // L6
-    ledge = platforms.create(235, 90, 'ground5');
+    // Right 4
+    ledge = platforms.create(707, 375, 'ground5');
     ledge.body.immovable = true;
-    // L7
-    ledge = platforms.create(235, 240, 'ground5');
+    // Right 5
+    ledge = platforms.create(767, 450, 'ground5');
     ledge.body.immovable = true;
-    // L8
-    ledge = platforms.create(235, 390, 'ground5');
+    
+    // Highest ledge
+    ledge = platforms.create(375, 100, 'ground4');
     ledge.body.immovable = true;
-
-    // Fourth column from the left top to bottom
-    // L9
-    ledge = platforms.create(335, 165, 'ground5');
+    
+    // Middle ledges
+    // Top left
+    ledge = platforms.create(150, 175, 'ground3');
     ledge.body.immovable = true;
-    // L10
-    ledge = platforms.create(335, 315, 'ground5');
+    // Top middle
+    ledge = platforms.create(385, 225, 'ground5');
     ledge.body.immovable = true;
-    // L11
-    ledge = platforms.create(335, 465, 'ground5');
+    // Top right
+    ledge = platforms.create(500, 175, 'ground3');
     ledge.body.immovable = true;
-
-    // Fifth column from the left top to bottom
-    // L12
-    ledge = platforms.create(435, 90, 'ground5');
+    // Middle left
+    ledge = platforms.create(175, 285, 'ground3');
     ledge.body.immovable = true;
-    // L13
-    ledge = platforms.create(435, 240, 'ground5');
+    // Middle right
+    ledge = platforms.create(475, 285, 'ground3');
     ledge.body.immovable = true;
-    // L14
-    ledge = platforms.create(435, 390, 'ground5');
+    // Bottom middle
+    ledge = platforms.create(200, 365, 'ground');
     ledge.body.immovable = true;
-
-    // Sixth column from the left top to bottom
-    // L15
-    ledge = platforms.create(535, 165, 'ground5');
-    ledge.body.immovable = true;
-    // L15
-    ledge = platforms.create(535, 315, 'ground5');
-    ledge.body.immovable = true;
-    // L16
-    ledge = platforms.create(535, 465, 'ground5');
-    ledge.body.immovable = true;
-
-    // Seventh column from the left top to bottom
-    // L17
-    ledge = platforms.create(635, 90, 'ground5');
-    ledge.body.immovable = true;
-    // L18
-    ledge = platforms.create(635, 240, 'ground5');
-    ledge.body.immovable = true;
-    // L19
-    ledge = platforms.create(635, 390, 'ground5');
-    ledge.body.immovable = true;
-
-    // Eighth column from the left top to bottom
-    // L20
-    ledge = platforms.create(735, 165, 'ground5');
-    ledge.body.immovable = true;
-    // L21
-    ledge = platforms.create(735, 315, 'ground5');
-    ledge.body.immovable = true;
-    // L22
-    ledge = platforms.create(735, 465, 'ground5');
-    ledge.body.immovable = true;
-
     
     // The player and its settings
     player = game.add.sprite(390, game.world.height - 95, 'batman');
@@ -167,7 +136,7 @@ function create() {
     //  Player physics properties. Give the little guy a slight bounce.
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.0;
-    player.body.gravity.y = 700;
+    player.body.gravity.y = 650;
     player.body.collideWorldBounds = true;
 
     //  Our three animations, walking left ,right and jumping.
@@ -189,22 +158,21 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // Top row
-        [40, 65],
-        [425, 65],
-        // Second row from top
-        [325, 140],
-        [745, 140],
-        // Third row from top
-        [30, 215],
-        [425, 215],
-        // Fourth row from top
-        [325, 290],
-        [725, 290],
-        // Fifth row from top
-        [425, 365],
-        // Sixth row from top
-        [325, 440]
+        [15, 75],
+        [375, 75],
+        [750, 75],
+        
+        [200, 150],
+        [550, 150],
+        
+        [240, 260],
+        [525, 260],
+        
+        [230, 340],
+        [365, 340],
+        [495, 340]
+        
+        
 ];
 
     let offset = 250;
@@ -239,6 +207,7 @@ function update() {
     
     var killSlime = game.physics.arcade.overlap(bullets, slimes);
 
+
     // health and stuffs
 
     if (hitSlime && ! invincible) {
@@ -260,7 +229,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-        setTimeout(() => game.add.text(300, 25, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
+        setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -272,7 +241,7 @@ function update() {
     }
 
     if (score == 100){
-        setTimeout(() => game.add.text(300, 25, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
+        setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         // setTimeout(() => {window.location = 'level5.html'}, 3000);
     }
