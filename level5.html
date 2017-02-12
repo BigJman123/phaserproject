@@ -2,13 +2,12 @@
 <html lang="en"> 
 <head> 
 	<meta charset="UTF-8" />
-	<title>Level 1</title>
+	<title>Level 5</title>
     <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
     <script type="text/javascript" src="Star.js"></script>
     <script type="text/javascript" src="HealthBar.js"></script>
-    <script type="text/javascript" src="Cheats.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -25,11 +24,13 @@ function preload() {
 
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
-    game.load.image('ground2', 'assets/platform6.png');
+    game.load.image('ground2', 'assets/platform2.png');
+    game.load.image('ground3', 'assets/platform3.png');
+    game.load.image('ground4', 'assets/platform4.png');
+    game.load.image('ground5', 'assets/platform5.png');
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
-    game.load.spritesheet('star', 'assets/star.png');
 }
 
 var platforms;
@@ -62,7 +63,8 @@ function create() {
     game.add.sprite(0, 0, 'sky');
 
     //  The platforms group contains the ground and ledges then we enable physics on platforms
-    platforms = game.add.group();
+    platforms = this.add.physicsGroup();
+    // platforms = game.add.group();
     platforms.enableBody = true;
 
     // Here we create the ground and scale it to fit the width of the game
@@ -72,26 +74,22 @@ function create() {
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
 
-    //  Now let's create two ledges
-    // Top Ledge
-    ledge = platforms.create(100, 200, 'ground2');
-    ledge.body.immovable = true;
-    // Second ledge from top
-    ledge = platforms.create(100, 315, 'ground2');
-    ledge.body.immovable = true;
-    // Third ledge from top
-    ledge = platforms.create(100, 425, 'ground2');
-    ledge.body.immovable = true;
+    // Left from the top down
+    // Left 1
+    ledge = platforms.create(200, 400, 'ground4');
     
+    ledge.body.allowGravity = true;
+    ledge.body.immovable = true;
 
-
+    
+    
     // The player and its settings
-    player = game.add.sprite(375, game.world.height - 95, 'batman');
+    player = game.add.sprite(390, game.world.height - 95, 'batman');
 
     //  Player physics properties. Give the little guy a slight bounce.
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.0;
-    player.body.gravity.y = 515;
+    player.body.gravity.y = 650;
     player.body.collideWorldBounds = true;
 
     //  Our three animations, walking left ,right and jumping.
@@ -113,22 +111,9 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // Top ledge
-        [150, 175],
-        [350, 175],
-        [550, 175],
         
-        // Second ledge from top
-        [150, 290],
-        [350, 290],
-        [550, 290],
         
-        // Third ledge from the top
-        [150, 400],
-        [350, 400],
-        [550, 400]
-        
-    ];
+];
 
     let offset = 250;
     slimeLocations.forEach(function (location) {
@@ -140,12 +125,6 @@ function create() {
         offset += 500;
 
     });
-    
-    // makes a stars group and enables physics
-    stars = game.add.group();
-    stars.enableBody = true;
-    
-    // stars = stars.create(100, 300, 'star');
     
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     
@@ -171,11 +150,10 @@ function update() {
 
     // health and stuffs
 
-    if (hitSlime && ! invincible && ! cheats.check('god')) {
+    if (hitSlime && ! invincible) {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
-        game.camera.flash(0xff0000, 500);
         setTimeout(() => notInvincible(), 1000);
     }
 
@@ -191,7 +169,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-        setTimeout(() => game.add.text(315, 100, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
+        setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -203,9 +181,9 @@ function update() {
     }
 
     if (score == 100){
-        setTimeout(() => game.add.text(330, 100, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
+        setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
         
-        setTimeout(() => {window.location = 'level2.html'}, 3000);
+        setTimeout(() => {window.location = 'level5.html'}, 3000);
     }
 
     // helper
