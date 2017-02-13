@@ -2,11 +2,18 @@
 <html lang="en"> 
 <head> 
 	<meta charset="UTF-8" />
+<<<<<<< HEAD
 	<title>Level 5</title>
     <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
     <script type="text/javascript" src="Star.js"></script>
+=======
+	<title>Level 4</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+    <script type="text/javascript" src="Bullet.js"></script>
+    <script type="text/javascript" src="Slime.js"></script>
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
     <script type="text/javascript" src="HealthBar.js"></script>
     <style type="text/css">
         body {
@@ -30,7 +37,11 @@ function preload() {
     game.load.image('ground5', 'assets/platform5.png');
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
+<<<<<<< HEAD
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
+=======
+    game.load.spritesheet('slime', 'assets/slime 2.png', 28, 28);
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
 }
 
 var platforms;
@@ -63,8 +74,12 @@ function create() {
     game.add.sprite(0, 0, 'sky');
 
     //  The platforms group contains the ground and ledges then we enable physics on platforms
+<<<<<<< HEAD
     platforms = this.add.physicsGroup();
     // platforms = game.add.group();
+=======
+    platforms = game.add.group();
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
     platforms.enableBody = true;
 
     // Here we create the ground and scale it to fit the width of the game
@@ -76,12 +91,70 @@ function create() {
 
     // Left from the top down
     // Left 1
+<<<<<<< HEAD
     ledge = platforms.create(200, 400, 'ground4');
     
     ledge.body.allowGravity = true;
     ledge.body.immovable = true;
 
     
+=======
+    ledge = platforms.create(0, 100, 'ground4');
+    ledge.body.immovable = true;
+    // Left 2
+    ledge = platforms.create(50, 225, 'ground5');
+    ledge.body.immovable = true;
+    // Left 3
+    ledge = platforms.create(0, 300, 'ground5');
+    ledge.body.immovable = true;
+    // Left 4
+    ledge = platforms.create(50, 375, 'ground5');
+    ledge.body.immovable = true;
+    // Left 5
+    ledge = platforms.create(0, 450, 'ground5');
+    ledge.body.immovable = true;
+    
+    // Right from the top down
+    // Right 1
+    ledge = platforms.create(750, 100, 'ground4');
+    ledge.body.immovable = true;
+    // Right 2
+    ledge = platforms.create(707, 225, 'ground5');
+    ledge.body.immovable = true;
+    // Right 3
+    ledge = platforms.create(767, 300, 'ground5')
+    ledge.body.immovable = true;
+    // Right 4
+    ledge = platforms.create(707, 375, 'ground5');
+    ledge.body.immovable = true;
+    // Right 5
+    ledge = platforms.create(767, 450, 'ground5');
+    ledge.body.immovable = true;
+    
+    // Highest ledge
+    ledge = platforms.create(375, 100, 'ground4');
+    ledge.body.immovable = true;
+    
+    // Middle ledges
+    // Top left
+    ledge = platforms.create(150, 175, 'ground3');
+    ledge.body.immovable = true;
+    // Top middle
+    ledge = platforms.create(385, 225, 'ground5');
+    ledge.body.immovable = true;
+    // Top right
+    ledge = platforms.create(500, 175, 'ground3');
+    ledge.body.immovable = true;
+    // Middle left
+    ledge = platforms.create(175, 285, 'ground3');
+    ledge.body.immovable = true;
+    // Middle right
+    ledge = platforms.create(475, 285, 'ground3');
+    ledge.body.immovable = true;
+    // Bottom middle
+    ledge = platforms.create(200, 365, 'ground');
+    ledge.body.immovable = true;
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
     
     // The player and its settings
     player = game.add.sprite(390, game.world.height - 95, 'batman');
@@ -111,6 +184,22 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
+<<<<<<< HEAD
+=======
+        [15, 75],
+        [375, 75],
+        [750, 75],
+        
+        [200, 150],
+        [550, 150],
+        
+        [240, 260],
+        [525, 260],
+        
+        [230, 340],
+        [365, 340],
+        [495, 340]
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
         
         
 ];
@@ -169,7 +258,11 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
+<<<<<<< HEAD
         setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
+=======
+        setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -181,9 +274,15 @@ function update() {
     }
 
     if (score == 100){
+<<<<<<< HEAD
         setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level5.html'}, 3000);
+=======
+        setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
+        
+        // setTimeout(() => {window.location = 'level5.html'}, 3000);
+>>>>>>> c8a23a8655c91fc4f7b438d07726d0875aa3fd2d
     }
 
     // helper

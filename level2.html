@@ -200,7 +200,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-        setTimeout(() => game.add.text(315, 200, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
+        setTimeout(() => game.add.text(325, 200, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
     
@@ -212,7 +212,7 @@ function update() {
     }
 
     if (score == 100){
-        setTimeout(() => game.add.text(330, 200, 'You Win!', { fontSize: '40px', fill: '#ffd799'}), 500);
+        setTimeout(() => game.add.text(325, 200, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level3.html'}, 3000);
     }
