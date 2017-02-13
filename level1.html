@@ -35,6 +35,7 @@ function preload() {
 var platforms;
 var slimes;
 var bullets;
+var stars;
 
 var player;
 
@@ -108,6 +109,14 @@ function create() {
     bullets = game.add.group();
     bullets.enableBody = true;
     
+    // makes a stars group and enables physics
+    stars = game.add.group();
+    stars.enableBody = true;
+    
+    stars.create(390, 178, 'star');
+    stars.create(390, 293, 'star');
+    stars.create(390, 403, 'star');
+    
     // the slime group contains all slimes and enables physics on them. The for loop adds slimes to the game.
     slimes = game.add.group();
     slimes.enableBody = true;
@@ -141,11 +150,6 @@ function create() {
 
     });
     
-    // makes a stars group and enables physics
-    stars = game.add.group();
-    stars.enableBody = true;
-    
-    // stars = stars.create(100, 300, 'star');
     
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     
@@ -167,6 +171,8 @@ function update() {
     var hitSlime = game.physics.arcade.collide(player, slimes);
     
     var killSlime = game.physics.arcade.overlap(bullets, slimes);
+    
+    var collectStar = game.physics.arcade.collide(player, stars);
 
 
     // health and stuffs
