@@ -4,9 +4,9 @@
 	<meta charset="UTF-8" />
 	<title>Level 2</title>
     <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+    <script type="text/javascript" src="vendor/store.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
-    <script type="text/javascript" src="Star.js"></script>
     <script type="text/javascript" src="HealthBar.js"></script>
     <style type="text/css">
         body {
@@ -27,11 +27,13 @@ function preload() {
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
+    game.load.spritesheet('star', 'assets/star.png');
 }
 
 var platforms;
 var slimes;
 var bullets;
+var stars;
 
 var player;
 
@@ -112,6 +114,18 @@ function create() {
     var barConfig = {x: 200, y: 100};
     healthbar = new HealthBar(this.game, {x: 675, y: 40});
 
+    // makes a stars group and enables physics
+    stars = game.add.group();
+    stars.enableBody = true;
+
+    stars.create(35, 178, 'star');
+    stars.create(35, 344, 'star');
+    stars.create(740, 178, 'star');
+    stars.create(740, 344, 'star');
+    stars.create(390, 103, 'star');
+    stars.create(390, 253, 'star');
+    stars.create(390, 403, 'star');
+
     // the bullet group contains all bullets and enables physics on them.
     bullets = game.add.group();
     bullets.enableBody = true;
@@ -121,7 +135,7 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // C1
+        // // C1
         [225, 100],
         [445, 100],
         
@@ -178,6 +192,8 @@ function update() {
     
     var killSlime = game.physics.arcade.overlap(bullets, slimes);
 
+    var grabStar = game.physics.arcade.overlap(player, stars, collectStar, null, this);
+
 
     // health and stuffs
 
@@ -211,10 +227,19 @@ function update() {
         scoreText.text = 'score: ' + score;
     }
 
-    if (score == 100){
+    if (grabStar) {
+        score += 50;
+        scoreText.text = 'score: ' + score;
+    }
+
+    if (stars.countLiving() == 0){
         setTimeout(() => game.add.text(325, 200, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level3.html'}, 3000);
+    }
+
+    function collectStar(player, stars) {
+        stars.kill();
     }
 
     // helper

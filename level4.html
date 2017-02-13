@@ -4,9 +4,9 @@
 	<meta charset="UTF-8" />
 	<title>Level 4</title>
     <script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+    <script type="text/javascript" src="vendor/store.min.js"></script>
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
-    <script type="text/javascript" src="Star.js"></script>
     <script type="text/javascript" src="HealthBar.js"></script>
     <style type="text/css">
         body {
@@ -31,6 +31,7 @@ function preload() {
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
     game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
+    game.load.spritesheet('star', 'assets/star.png');
 }
 
 var platforms;
@@ -181,6 +182,10 @@ function create() {
     var barConfig = {x: 200, y: 100};
     healthbar = new HealthBar(this.game, {x: 675, y: 40});
 
+    // makes a stars group and enables physics
+    stars = game.add.group();
+    stars.enableBody = true;
+
     // the bullet group contains all bullets and enables physics on them.
     bullets = game.add.group();
     bullets.enableBody = true;
@@ -190,22 +195,22 @@ function create() {
     slimes.enableBody = true;
 
     let slimeLocations = [
-        // Top row
-        [40, 65],
-        [425, 65],
-        // Second row from top
-        [325, 140],
-        [745, 140],
-        // Third row from top
-        [30, 215],
-        [425, 215],
-        // Fourth row from top
-        [325, 290],
-        [725, 290],
-        // Fifth row from top
-        [425, 365],
-        // Sixth row from top
-        [325, 440]
+        // // Top row
+        // [40, 65],
+        // [425, 65],
+        // // Second row from top
+        // [325, 140],
+        // [745, 140],
+        // // Third row from top
+        // [30, 215],
+        // [425, 215],
+        // // Fourth row from top
+        // [325, 290],
+        // [725, 290],
+        // // Fifth row from top
+        // [425, 365],
+        // // Sixth row from top
+        // [325, 440]
 ];
 
     let offset = 250;
@@ -240,6 +245,8 @@ function update() {
     
     var killSlime = game.physics.arcade.overlap(bullets, slimes);
 
+    var grabStar = game.physics.arcade.overlap(player, stars, collectStar, null, this);
+
     // health and stuffs
 
     if (hitSlime && ! invincible) {
@@ -272,10 +279,19 @@ function update() {
         scoreText.text = 'score: ' + score;
     }
 
+    if (grabStar) {
+        score += 50;
+        scoreText.text = 'score: ' + score;
+    }
+
     if (score == 100){
         setTimeout(() => game.add.text(315, 25, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level5.html'}, 3000);
+    }
+
+    function collectStar(player, stars) {
+        stars.kill();
     }
 
     // helper
