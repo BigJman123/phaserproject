@@ -49,7 +49,7 @@ var direction = 1;
 
 var bulletXSpeed = 300;
 
-var score = 0;
+var score = store.get('score') || 0;
 var scoreText;
 
 function create() {
@@ -171,7 +171,7 @@ function create() {
 
     });
     
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'score: ' + score, { fontSize: '32px', fill: '#000' });
     
     healthText = game.add.text(575, 3, 'health');
 
