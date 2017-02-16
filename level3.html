@@ -8,6 +8,7 @@
     <script type="text/javascript" src="Bullet.js"></script>
     <script type="text/javascript" src="Slime.js"></script>
     <script type="text/javascript" src="HealthBar.js"></script>
+    <script type="text/javascript" src="Cheats.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -196,7 +197,7 @@ function update() {
 
     // health and stuffs
 
-    if (hitSlime && ! invincible) {
+    if (hitSlime && ! invincible && ! cheats.check('god')) {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
