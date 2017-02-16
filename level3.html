@@ -159,14 +159,14 @@ function create() {
         [725, 400]
 ];
 
-    let offset = 250;
+    // let offset = 250;
     slimeLocations.forEach(function (location) {
 
-        setTimeout(() => {
+        // setTimeout(() => {
             var slime = new Slime(game, location[0], location[1]);
             slimes.add(slime);    
-        }, 500 + offset);
-        offset += 500;
+        // }, 500 + offset);
+        // offset += 500;
 
     });
     

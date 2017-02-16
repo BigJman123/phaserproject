@@ -140,14 +140,21 @@ function create() {
         
     ];
 
-    let offset = 250;
-    slimeLocations.forEach(function (location) {
+    // a function that gives a random integer
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
 
-        setTimeout(() => {
-            var slime = new Slime(game, location[0], location[1]);
+    // let offset = 250;
+    slimeLocations.forEach(function (location) {
+        let rand = getRandomInt(0, 100);
+        // setTimeout(() => {
+            var slime = new Slime(game, location[0] + rand, location[1]);
             slimes.add(slime);    
-        }, 500 + offset);
-        offset += 500;
+        // }, 500 + offset);
+        // offset += 500;
 
     });
     

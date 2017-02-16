@@ -140,34 +140,41 @@ function create() {
         [445, 100],
         
         // L1
-        [15, 175],
+        [10, 175],
 
         // R1
-        [750, 175],
+        [740, 175],
         
         // C2
         [225, 250],
         [445, 250],
         
         // L2
-        [15, 330],
+        [10, 330],
         
         // R2
-        [750, 330],
+        [740, 330],
         
         // C3
         [225, 400],
         [445, 400],
 ];
 
-    let offset = 250;
-    slimeLocations.forEach(function (location) {
+    // a function that gives a random integer
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
 
-        setTimeout(() => {
-            var slime = new Slime(game, location[0], location[1]);
+    // let offset = 250;
+    slimeLocations.forEach(function (location) {
+        let rand = getRandomInt(0, 75);
+        // setTimeout(() => {
+            var slime = new Slime(game, location[0] + rand, location[1]);
             slimes.add(slime);    
-        }, 500 + offset);
-        offset += 500;
+        // }, 500 + offset);
+        // offset += 500;
 
     });
     
