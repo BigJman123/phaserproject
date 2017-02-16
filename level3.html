@@ -50,7 +50,7 @@ var direction = 1;
 
 var bulletXSpeed = 300;
 
-var score = 0;
+var score = store.get('score') || 0;
 var scoreText;
 
 function create() {
@@ -170,7 +170,7 @@ function create() {
 
     });
     
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'score: ' + score, { fontSize: '32px', fill: '#000' });
     
     healthText = game.add.text(575, 3, 'health');
 
@@ -200,6 +200,7 @@ function update() {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
+        game.camera.flash(0xff0000, 500);
         setTimeout(() => notInvincible(), 1000);
     }
 
@@ -215,6 +216,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
+        store.get('score');
         setTimeout(() => game.add.text(315, 100, 'Game Over', { fontSize: '40px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
@@ -232,6 +234,7 @@ function update() {
     }
 
     if (stars.countLiving() == 0){
+        store.set('score', score);
         setTimeout(() => game.add.text(325, 100, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level4.html'}, 3000);

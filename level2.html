@@ -201,6 +201,7 @@ function update() {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
+        game.camera.flash(0xff0000, 500);
         setTimeout(() => notInvincible(), 1000);
     }
 
@@ -216,6 +217,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
+        store.get('score');
         setTimeout(() => game.add.text(325, 200, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
         setTimeout(() => location.reload(), 1500);
     }
@@ -233,6 +235,7 @@ function update() {
     }
 
     if (stars.countLiving() == 0){
+        store.set('score', score);
         setTimeout(() => game.add.text(325, 200, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         setTimeout(() => {window.location = 'level3.html'}, 3000);

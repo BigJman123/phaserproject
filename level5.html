@@ -52,7 +52,7 @@ var direction = 1;
 
 var bulletXSpeed = 300;
 
-var score = 0;
+var score = store.get('score') || 0;
 var scoreText;
 
 function create() {
@@ -158,6 +158,15 @@ function create() {
     stars = game.add.group();
     stars.enableBody = true;
 
+    stars.create(13, 78, 'star');
+    stars.create(389, 78, 'star');
+    stars.create(765, 78, 'star');
+    stars.create(240, 263, 'star');
+    stars.create(389, 200, 'star');
+    stars.create(540, 263, 'star');
+    stars.create(265, 343, 'star');
+    stars.create(515, 343, 'star');
+
     // the bullet group contains all bullets and enables physics on them.
     bullets = game.add.group();
     bullets.enableBody = true;
@@ -193,7 +202,7 @@ function create() {
 
     });
     
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'score: ' + score, { fontSize: '32px', fill: '#000' });
     
     healthText = game.add.text(575, 3, 'health');
 
@@ -223,6 +232,7 @@ function update() {
         playerHealth -= 33;
         healthbar.setPercent(playerHealth);
         makeInvincible();
+        game.camera.flash(0xff0000, 500);
         setTimeout(() => notInvincible(), 1000);
     }
 
@@ -238,7 +248,7 @@ function update() {
 
     if (playerHealth == 1) {
         player.kill();
-
+        store.get('score');
         setTimeout(() => game.add.text(330, 165, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
 
         setTimeout(() => location.reload(), 1500);
@@ -257,6 +267,7 @@ function update() {
     }
 
     if (stars.countLiving() == 0){
+        store.set('score', score);
         setTimeout(() => game.add.text(340, 165, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
         
         // setTimeout(() => {window.location = 'level5.html'}, 3000);
