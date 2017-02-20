@@ -1,0 +1,47 @@
+<!doctype html> 
+<html lang="en"> 
+<head>
+
+	<!-- Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+      ga('create', 'UA-92223000-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+	<!-- Assets -->
+	<script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+	<script type="text/javascript" src="vendor/store.min.js"></script>
+    <script type="text/javascript" src="Bullet.js"></script>
+    <script type="text/javascript" src="Slime.js"></script>
+    <script type="text/javascript" src="HealthBar.js"></script>
+    <script type="text/javascript" src="Cheats.js"></script>
+
+    <!-- States -->
+	<script src="states/boot.js"></script>
+	<script src="states/preload.js"></script>
+	<script src="states/gametitle.js"></script>
+	<style>
+		body{margin:0}
+	</style>
+
+	<script>
+		let game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
+
+		(function(game) {
+			// var game = new Phaser.Game(320, 480, Phaser.CANVAS, "game");
+			game.state.add("Boot", boot);
+			game.state.add("Preload", preload);
+			game.state.add("GameTitle", gameTitle);
+			game.state.start("Boot");
+		})(game);    
+	</script>
+
+</head>
+<body>
+</body>
+</html>
