@@ -25,20 +25,22 @@
 	<script src="states/boot.js"></script>
 	<script src="states/preload.js"></script>
 	<script src="states/gametitle.js"></script>
+	<script src="levels/level1.js"></script>
 	<style>
 		body{margin:0}
 	</style>
 
 	<script>
-		let game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 
-		(function(game) {
+		(function() {
+			let game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 			// var game = new Phaser.Game(320, 480, Phaser.CANVAS, "game");
 			game.state.add("Boot", boot);
 			game.state.add("Preload", preload);
 			game.state.add("GameTitle", gameTitle);
+			game.state.add("Level1", level1);
 			game.state.start("Boot");
-		})(game);    
+		})();    
 	</script>
 
 </head>
