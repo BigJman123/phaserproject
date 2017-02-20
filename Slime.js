@@ -57,7 +57,7 @@ Slime.prototype.update = function () {
     });
 
     game.physics.arcade.collide(this, slimes, function (slime, slimes) {
-        slime.body.velocity.x *= -1;
+        slime.body.velocity.x *= 1;
     });
 
     if (this.body.velocity.x > 0) {
