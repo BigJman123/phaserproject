@@ -36,8 +36,8 @@ function preload() {
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('ground2', 'assets/platform6.png');
-    game.load.spritesheet('batman', 'assets/batman2.png', 32, 32);
-    game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
+    game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
+    game.load.spritesheet('batarang', 'assets/batarang.png', 13, 13);
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
     game.load.spritesheet('star', 'assets/star.png');
 }
@@ -259,34 +259,30 @@ function update() {
     if (cursors.left.isDown) {
 
         player.body.velocity.x = -150;
-
         let animation = playerIsOnGround() ? 'left' : 'jumpleft';
         player.animations.play(animation);
 
     } else if (cursors.right.isDown) {
 
         player.body.velocity.x = 150;
-
         let animation = playerIsOnGround() ? 'right' : 'jumpright';
         player.animations.play(animation);
 
-    } else if (cursors.right.onUp || cursors.left.onUp){
+    } else if (cursors.right.onUp || cursors.left.onUp) {
         //  Stand still
         player.animations.stop();
 
-        player.body.velocity.x = 0;
-            
-        let animation = playerIsOnGround() ? 'standright' : 'standleft';
-        player.animations.play(animation);
+        if (playerIsOnGround()) {
+            let animation = direction == 1 ? 'standright' : 'standleft';
+            player.animations.play(animation);
+        }
     }
-
     // Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.touching.down && hitPlatform)
     {
         player.frame = 10;
         player.body.velocity.y = -350;
     }
-
 }
 
 </script>

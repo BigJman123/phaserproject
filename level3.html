@@ -38,7 +38,7 @@ function preload() {
     game.load.image('ground2', 'assets/platform2.png');
     game.load.image('ground3', 'assets/platform3.png');
     game.load.spritesheet('batman', 'assets/batman.png', 32, 32);
-    game.load.spritesheet('batarang', 'assets/batarang.png', 9, 9);
+    game.load.spritesheet('batarang', 'assets/batarang.png', 13, 13);
     game.load.spritesheet('slime', 'assets/slime.png', 28, 28);
     game.load.spritesheet('star', 'assets/star.png');
 }
@@ -121,9 +121,11 @@ function create() {
 
     //  Our three animations, walking left ,right and jumping.
     player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
-    player.animations.add('jumpleft', [10], 10, true);
-    player.animations.add('jumpright', [9], 10, true);
+    player.animations.add('right', [6, 7, 8, 9], 10, true);
+    player.animations.add('jumpleft', [11], 10, true);
+    player.animations.add('jumpright', [10], 10, true);
+    player.animations.add('standleft', [4], 10, true);
+    player.animations.add('standright', [5], 10, true);
 
     // Health bar
     var barConfig = {x: 200, y: 100};
@@ -138,7 +140,7 @@ function create() {
     stars.create(385, 203, 'star');
     stars.create(165, 303, 'star');
     stars.create(615, 303, 'star');
-    stars.create(385, 353, 'star');
+    stars.create(385, 363, 'star');
 
     // the bullet group contains all bullets and enables physics on them.
     bullets = game.add.group();
@@ -269,35 +271,31 @@ function update() {
     if (cursors.left.isDown) {
 
         player.body.velocity.x = -150;
-
         let animation = playerIsOnGround() ? 'left' : 'jumpleft';
         player.animations.play(animation);
 
     } else if (cursors.right.isDown) {
 
         player.body.velocity.x = 150;
-
         let animation = playerIsOnGround() ? 'right' : 'jumpright';
         player.animations.play(animation);
 
-    } else {
+    } else if (cursors.right.onUp || cursors.left.onUp) {
         //  Stand still
         player.animations.stop();
 
         if (playerIsOnGround()) {
-            player.frame = 4;
+            let animation = direction == 1 ? 'standright' : 'standleft';
+            player.animations.play(animation);
         }
     }
-
     // Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.touching.down && hitPlatform)
     {
-        player.frame = 9;
+        player.frame = 10;
         player.body.velocity.y = -350;
     }
-
 }
-
 </script>
 
 </body>
