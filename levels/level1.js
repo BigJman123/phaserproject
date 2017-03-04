@@ -31,17 +31,17 @@ level1.prototype = {
 
         var game = this.game;
         //  We're going to be using physics, so enable the Arcade Physics system
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.physics.startSystem(Phaser.Physics.ARCADE);
 
         //  A simple background for our game
-        game.add.sprite(0, 0, 'sky');
+        this.add.sprite(0, 0, 'sky');
 
         //  The platforms group contains the ground and ledges then we enable physics on platforms
-        platforms = game.add.group();
+        platforms = this.add.group();
         platforms.enableBody = true;
 
         // Here we create the ground and scale it to fit the width of the game
-        var ground = platforms.create(0, game.world.height - 64, 'ground');
+        var ground = platforms.create(0, this.world.height - 64, 'ground');
         ground.scale.setTo(2, 2);
 
         //  This stops it from falling away when you jump on it
@@ -61,10 +61,10 @@ level1.prototype = {
 
 
         // The player and its settings
-        player = game.add.sprite(375, game.world.height - 95, 'batman');
+        player = this.add.sprite(375, this.world.height - 95, 'batman');
 
         //  Player physics properties. Give the little guy a slight bounce.
-        game.physics.arcade.enable(player);
+        this.physics.arcade.enable(player);
         player.body.bounce.y = 0.0;
         player.body.gravity.y = 515;
         player.body.collideWorldBounds = true;
@@ -80,7 +80,7 @@ level1.prototype = {
         healthbar = new HealthBar(this.game, {x: 675, y: 40});
 
         // makes a stars group and enables physics
-        stars = game.add.group();
+        stars = this.add.group();
         stars.enableBody = true;
 
         // creates the stars and displays them in the game
@@ -89,11 +89,11 @@ level1.prototype = {
         stars.create(390, 403, 'star');
 
         // the bullet group contains all bullets and enables physics on them.
-        bullets = game.add.group();
+        bullets = this.add.group();
         bullets.enableBody = true;
         
         // the slime group contains all slimes and enables physics on them. The for loop adds slimes to the game.
-        slimes = game.add.group();
+        slimes = this.add.group();
         slimes.enableBody = true;
 
         let slimeLocations = [
@@ -134,28 +134,28 @@ level1.prototype = {
         
         
         store.set('score', 0);
-        scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
         
-        healthText = game.add.text(575, 3, 'health');
+        healthText = this.add.text(575, 3, 'health');
 
 
         // this makes the spacebar the key that shoots bullets
-        spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        spaceBar = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         spaceBar.onDown.add(shootBullet, this);
-        cursors = game.input.keyboard.createCursorKeys();
+        cursors = this.input.keyboard.createCursorKeys();
     },
 
 
     update: function() {
         var game = this.game;
         //  Collide the player and the stars with the platforms
-        var hitPlatform = game.physics.arcade.collide(player, platforms);
+        var hitPlatform = this.physics.arcade.collide(player, platforms);
 
-        var hitSlime = game.physics.arcade.collide(player, slimes);
+        var hitSlime = this.physics.arcade.collide(player, slimes);
         
-        var killSlime = game.physics.arcade.overlap(bullets, slimes);
+        var killSlime = this.physics.arcade.overlap(bullets, slimes);
 
-        var grabStar = game.physics.arcade.overlap(player, stars, collectStar, null, this);
+        var grabStar = this.physics.arcade.overlap(player, stars, collectStar, null, this);
 
 
         // health and stuffs
@@ -181,7 +181,7 @@ level1.prototype = {
         if (this.playerHealth == 1) {
             this.player.kill();
             store.set('score', 0);
-            setTimeout(() => game.add.text(315, 100, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
+            setTimeout(() => this.add.text(315, 100, 'Game Over', { fontSize: '30px', fill: '#000' }), 500);
             setTimeout(() => location.reload(), 1500);
         }
         
@@ -198,7 +198,7 @@ level1.prototype = {
 
         if (stars.countLiving() == 0){
             store.set('score', score);
-            setTimeout(() => game.add.text(315, 100, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
+            setTimeout(() => this.add.text(315, 100, 'You Win!', { fontSize: '30px', fill: '#ffd799'}), 500);
             
             setTimeout(() => {window.location = 'level2.html'}, 3000);
         }

@@ -43,7 +43,7 @@ Slime.prototype.update = function () {
         }
     }
 
-    game.physics.arcade.collide(this, platforms, function (slime, platform) {
+    this.physics.arcade.collide(this, platforms, function (slime, platform) {
         if (slime.body.velocity.x > 0 && slime.x > platform.x + (platform.width - slime.width) ||
                 slime.body.velocity.x < 0 && slime.x < platform.x) {
             // this is still the old platform patrol AI from before
@@ -56,7 +56,7 @@ Slime.prototype.update = function () {
         }
     });
 
-    game.physics.arcade.collide(this, slimes, function (slime, slimes) {
+    this.physics.arcade.collide(this, slimes, function (slime, slimes) {
         slime.body.velocity.x *= 1;
     });
 

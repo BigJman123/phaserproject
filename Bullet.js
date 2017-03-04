@@ -1,6 +1,6 @@
 Bullet = function (game, x, y, direction, speed) {
     Phaser.Sprite.call(this, game, x, y, "batarang");
-    game.physics.enable(this, Phaser.Physics.ARCADE);
+    this.physics.enable(this, Phaser.Physics.ARCADE);
     this.xSpeed = direction * speed;
 };
 
@@ -9,11 +9,11 @@ Bullet.prototype.constructor = Bullet;
 
 Bullet.prototype.update = function() {
 
-    game.physics.arcade.overlap(this, platforms, function (bullet) {
+    this.physics.arcade.overlap(this, platforms, function (bullet) {
         setTimeout(() => bullet.destroy(), 1)
     });
 
-    game.physics.arcade.overlap(this, slimes, function (bullet, slime) {
+    this.physics.arcade.overlap(this, slimes, function (bullet, slime) {
         slime.destroy();
         setTimeout(() => bullet.destroy(), 1);
     });
